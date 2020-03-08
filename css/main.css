@@ -1,3 +1,6 @@
+html{
+
+}
 body{
     background-color: #EBFCDB;
 }
@@ -5,7 +8,15 @@ header{
     background-color: #F8AF64;
 }
 footer{
-
+    background-color: #92B3CF;
+}
+.mainHead{
+    background-image: url("../static/head.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    /*background-size: contain;*/
+    width: 100%;
+    height: 550px;
 }
 .mainFirstPart{
     background-color: #807B70;
@@ -16,15 +27,31 @@ footer{
     flex-grow: 1;
     background-color: #FCF5EC;
 }
-.bookPrice{
-    text-align: center;
+/*.bookPrice{*/
+/*    font-size: 15px;*/
+/*    background-color: #8CCAAE;*/
+/*}*/
+
+.originalPrice{
     font-size: 15px;
-    background-color: #8CCAAE;
 }
+
+.salePrice{
+    font-size: 25px;
+}
+
+
 .bookDescription{
     overflow: auto;
     text-overflow:ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+}
+.anotherBatch{
+    font-size: 1rem;
+}
+.bookListItem{
+    width: 240px;
+    height: 150px;
 }

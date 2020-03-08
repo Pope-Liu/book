@@ -19,24 +19,26 @@ var carouselImages = [
 //获取轮播图图片
 
 //设置html轮播图
-var carouselInner = document.getElementById("carouselInner");
-var carouselInnerSrc = "";
-for (let i = 0; i < carouselImages.length; i++) {
-	if (i === 0) {
-		carouselInnerSrc +=
-			"<div class = 'carousel-item active'>" +
-			"<img src='" + carouselImages[i].url + "' class = 'img-fluid mw-100 h-auto' alt='book image'>" +
-			"</div>"
-	} else {
-		carouselInnerSrc +=
-			"<div class = 'carousel-item'>" +
-			"<img src='" + carouselImages[i].url + "' class = 'img-fluid mw-100 h-auto' alt='book image'>" +
-			"</div>"
+{
+	let carouselInner = document.getElementById("carouselInner");
+	let carouselInnerSrc = "";
+	for (let i = 0; i < carouselImages.length; i++) {
+		if (i === 0) {
+			carouselInnerSrc +=
+				"<div class = 'carousel-item active'>" +
+				"<img src='" + carouselImages[i].url + "' class = 'img-fluid mw-100 h-auto' alt='book image'>" +
+				"</div>"
+		} else {
+			carouselInnerSrc +=
+				"<div class = 'carousel-item'>" +
+				"<img src='" + carouselImages[i].url + "' class = 'img-fluid mw-100 h-auto' alt='book image'>" +
+				"</div>"
+		}
 	}
+	carouselInner.innerHTML = carouselInnerSrc;
 }
-carouselInner.innerHTML = carouselInnerSrc;
 
-
+//设置轮播图中的书籍信息部分
 {
 	//设置书籍图片
 	let bookImage = document.getElementById("bookImage");

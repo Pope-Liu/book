@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="../css/main.css">
 		<title>Book Shop</title>
 	</head>
-	<body class="mb-5">
+	<body >
 		<header>
 			<nav class="navbar navbar-expand-md">
 				<a class="navbar-brand font-weight-bold text-dark">Book Shop</a>
@@ -29,28 +29,34 @@
 							<a class="nav-link" href="cart.html">购物车</a>
 						</li>
 					</ul>
-					<form class="form-inline my-2 my-lg-0 ml-auto">
+					<form class="form-inline ml-2 my-lg-0 ml-auto">
 						<input class="form-control mr-sm-2" type="search" placeholder="Search">
 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 					</form>
-					<div class="mx-5">
+					<div class="mx-lg-5 mx-md-0">
 						<a class="nav-link font-weight-bold" href="user.html">个人中心</a>
 					</div>
 				</div>
 			</nav>
-
 		</header>
 
-		<main class="d-flex flex-column align-items-center">
+		<main class="d-flex flex-column align-items-center mb-5">
 
-			<div class="container d-flex flex-column justify-content-center">
+			<div class="d-flex flex-column justify-content-center align-items-center mainHead">
+				<h1 class="display-1 text-light mb-5">Book Mall</h1>
+				<h3 class=" font-italic text-white mb-5">书籍是人类进步的阶梯&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——高尔基</h3>
+				<a class="btn btn-primary py-2 px-3 text-white" href="#main">Get It Now! </a>
+			</div>
+
+			<div id="main" class="container d-flex flex-column justify-content-center">
+				<!--轮播图-->
 				<div class="d-flex mb-5 shadow-lg my-5 mainFirstPart">
 
 					<!--轮播图-->
 					<div id="carouselExampleIndicators" class=" carousel slide shadow-lg m-4 w-75 h-auto"
 						 data-ride="carousel">
 						<div id="carouselInner" class="carousel-inner w-100 h-auto">
-						<!--JS控制-->
+							<!--JS控制-->
 						</div>
 					</div>
 
@@ -59,57 +65,196 @@
 						<img id="bookImage" class="img-fluid mw-100 h-auto" src="../static/book-2435578_1920.jpg">
 						<div id="bookLabels" class="d-flex flex-row flex-wrap w-auto my-3"><!--JS控制-->
 						</div>
-						<div id="bookDescription" class="flex-grow-1 bookDescription rounded p-2 bg-light"> This is the book Description
+						<div id="bookDescription" class="flex-grow-1 bookDescription rounded p-2 bg-light"> This is the
+							book Description
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class=" d-flex flex-row justify-content-center m-5">
-				<div class="d-flex flex-row justify-content-end align-items-center w-25">
-					<img class="btn img-fluid mw-100 h-auto" src="../static/previous.png" alt="previous"
-						 id="previous"
-						 onclick="previous()" onmouseover="previous_selected()" onmouseout="previous_unselected()">
-				</div>
-				<div class="d-flex flex-row justify-content-center">
+				<!--每日推荐-->
+				<div class="d-flex flex-column my-5">
+					<div class="d-flex flex-row justify-content-between align-items-center">
+						<h3 class="ml-3">每日推荐</h3>
+						<div class="d-flex flex-row badge badge-secondary btn py-1 px-2 mr-3 shadow">
+							<span class="anotherBatch mr-1">换一批</span>
+							<img class="" style="width: 1rem; height: 1rem;" src="../static/anotherBatch.png">
+						</div>
+					</div>
 
-					<div class="d-flex flex-row justify-content-center mx-2">
-						<div class="card shadow mx-4 w-auto h-auto">
-							<img class="img-fluid mw-100 h-auto shadow" src="../static/book-3692762_1920.jpg"
+					<div class="container d-flex flex-row justify-content-between">
+						<div class="card shadow mr-3 w-auto h-auto ">
+							<img class="img-fluid mw-100 h-auto" src="../static/book-3692762_1920.jpg"
 								 alt="book">
 							<div class="bookInfo h-auto">
-								<div class="bookPrice">$10</div>
+								<div class="bookPrice my-2 mr-3 px-3 py-1 rounded">$10</div>
 							</div>
 						</div>
-						<div class="card shadow mx-4 w-auto h-auto">
-							<img class="img-fluid mw-100 h-auto shadow" src="../static/book-3692762_1920.jpg"
+						<div class="card shadow mx-3 w-auto h-auto ">
+							<img class="img-fluid mw-100 h-auto" src="../static/book-3692762_1920.jpg"
 								 alt="book">
 							<div class="bookInfo">
-								<div class="bookPrice">$10</div>
+								<div class="bookPrice my-2 mr-3 px-3 py-1 rounded">$10</div>
 							</div>
 						</div>
-						<div class="card shadow mx-4 w-auto h-auto">
-							<img class="img-fluid mw-100 h-auto shadow" src="../static/book-3692762_1920.jpg"
+						<div class="card shadow ml-3 w-auto h-auto ">
+							<img class="img-fluid mw-100 h-auto" src="../static/book-3692762_1920.jpg"
 								 alt="book">
 							<div class="bookInfo">
-								<div class="bookPrice">$10</div>
+								<div class="bookPrice my-2 mr-3 px-3 py-1 rounded">$10</div>
 							</div>
 						</div>
 					</div>
-
-				</div>
-				<div class="d-flex flex-row justify-content-start align-items-center w-25">
-					<img class="btn img-fluid mw-100 h-auto" src="../static/next.png" alt="next" id="next"
-						 onclick="next()" onmouseover="next_selected()" onmouseout="next_unselected()">
 				</div>
 
+				<!--销量榜-->
+				<div class="d-flex flex-column my-5 bg-light">
+					<div class="bg-light">
+						<ul class="nav nav-tabs table-secondary">
+							<li class="nav-item">
+								<a class="nav-link active" data-toggle="tab" href="#weekSellWell">本周热销榜</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#monthSellWell">本月热销榜</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#discount">优惠</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="tab-content">
+						<div id="weekSellWell" class="tab-pane fade show active">
+							<div class="mt-2">
+								<ul class="list-group">
+									<li class=" list-group-item d-flex flex-row list-group-item-action">
+										<img class="img-fluid bookListItem col-3" src="../static/head.jpg" alt="book list item image">
+										<div class="d-flex flex-column justify-content-between flex-grow-1 ml-4" style="max-width: 50%" >
+											<h4 class="font-italic font-weight-bold d-inline-block text-truncate " style="max-width: 100%">This is bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbook name</h4>
+											<p>Author:&nbsp;&nbsp;<strong>Pope</strong></p>
+											<div class="d-flex flex-row flex-wrap w-auto mt-3">
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+											</div>
+										</div>
+										<div class="d-flex flex-column justify-content-center align-items-center mx-5">
+											<div class=" my-2 mr-3 px-3 py-1 rounded text-center">
+												<p class="mx-2 font-italic originalPrice" style="text-decoration: line-through">$10</p>
+												<p class="font-weight-bolder salePrice">$5</p>
+											</div>
+										</div>
+										<a class="stretched-link" href="user.html"></a>
+									</li>
+									<li class=" list-group-item d-flex flex-row list-group-item-action">
+										<img class="img-fluid bookListItem col-3" src="../static/head.jpg" alt="book list item image">
+										<div class="d-flex flex-column justify-content-between flex-grow-1 ml-4" style="max-width: 50%" >
+											<h4 class="font-italic font-weight-bold d-inline-block text-truncate " style="max-width: 100%">This is bbbbbbbbbbbbbbbook name</h4>
+											<p>Author:&nbsp;&nbsp;<strong>Pope</strong></p>
+											<div class="d-flex flex-row flex-wrap w-auto mt-3">
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+											</div>
+										</div>
+										<div class="d-flex flex-column justify-content-center align-items-center mx-5">
+											<div class=" my-2 mr-3 px-3 py-1 rounded text-center">
+												<p class="mx-2 font-italic originalPrice" style="text-decoration: line-through">$10</p>
+												<p class="font-weight-bolder salePrice">$5</p>
+											</div>
+										</div>
+										<a class="stretched-link" href="user.html"></a>
+										<!--										<div class="d-flex flex-column justify-content-center">-->
+										<!--											<a class="btn btn-primary stretched-link" href="user.html"></a>-->
+										<!--										</div>-->
+									</li>
+									<li class=" list-group-item d-flex flex-row list-group-item-action">
+										<img class="img-fluid bookListItem col-3" src="../static/head.jpg" alt="book list item image">
+										<div class="d-flex flex-column justify-content-between flex-grow-1 ml-4" style="max-width: 50%" >
+											<h4 class="font-italic font-weight-bold d-inline-block text-truncate " style="max-width: 100%">This is bbbbbbbbbbbbbbbook name</h4>
+											<p>Author:&nbsp;&nbsp;<strong>Pope</strong></p>
+											<div class="d-flex flex-row flex-wrap w-auto mt-3">
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+											</div>
+										</div>
+										<div class="d-flex flex-column justify-content-center align-items-center mx-5">
+											<div class=" my-2 mr-3 px-3 py-1 rounded text-center">
+												<p class="mx-2 font-italic originalPrice" style="text-decoration: line-through">$10</p>
+												<p class="font-weight-bolder salePrice">$5</p>
+											</div>
+										</div>
+										<a class="stretched-link" href="user.html"></a>
+										<!--										<div class="d-flex flex-column justify-content-center">-->
+										<!--											<a class="btn btn-primary stretched-link" href="user.html"></a>-->
+										<!--										</div>-->
+									</li>
+									<li class=" list-group-item d-flex flex-row list-group-item-action">
+										<img class="img-fluid bookListItem col-3" src="../static/head.jpg" alt="book list item image">
+										<div class="d-flex flex-column justify-content-between flex-grow-1 ml-4" style="max-width: 50%" >
+											<h4 class="font-italic font-weight-bold d-inline-block text-truncate " style="max-width: 100%">This is bbbbbbbbbbbbbbbook name</h4>
+											<p>Author:&nbsp;&nbsp;<strong>Pope</strong></p>
+											<div class="d-flex flex-row flex-wrap w-auto mt-3">
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+												<p class="badge badge-secondary mx-2">标签</p>
+											</div>
+										</div>
+										<div class="d-flex flex-column justify-content-center align-items-center mx-5">
+											<div class=" my-2 mr-3 px-3 py-1 rounded text-center">
+												<p class="mx-2 font-italic originalPrice" style="text-decoration: line-through">$10</p>
+												<p class="font-weight-bolder salePrice">$5</p>
+											</div>
+										</div>
+										<a class="stretched-link" href="user.html"></a>
+										<!--										<div class="d-flex flex-column justify-content-center">-->
+										<!--											<a class="btn btn-primary stretched-link" href="user.html"></a>-->
+										<!--										</div>-->
+									</li>
+								</ul>
+							</div>
+
+						</div>
+						<div id="monthSellWell" class="tab-pane fade">
+							本月热销榜
+						</div>
+						<div id="discount" class="tab-pane fade">
+							优惠
+						</div>
+					</div>
+				</div>
 			</div>
 
 
 		</main>
 
-		<footer>
-			<div style="height: 300px"></div>
+		<footer class="mt-auto">
+			<div class="container d-flex flex-column p-3">
+				<div class="d-flex flex-row justify-content-center form-inline">
+					<a class="text-white" href="user.html">关于我们</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a class="text-white" href="mall.html">随便逛逛</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a class="text-white" href="user.html">购物车</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a class="text-white" href="user.html">个人中心</a>
+				</div>
+				<div class="dropdown-divider"></div>
+				<div class="font-weight-light text-center" style="font-size: 15px">Copyright@网工小组</div>
+			</div>
+
 		</footer>
 
 		<!-- Optional JavaScript -->
