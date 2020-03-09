@@ -1,0 +1,17 @@
+body{
+    background-color: #EBFCDB;
+}
+header{
+    background-color: #F8AF64;
+}
+footer{
+    background-color: #92B3CF;
+}
+.cartBody{
+    background-color: rgb(170, 190, 207);
+    width: 100%;
+}
+.pay{
+    background-color: rgb(137, 130, 197);
+    width: 100%;
+}

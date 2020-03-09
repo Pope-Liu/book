@@ -6,7 +6,7 @@
 		
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="../css/main.css">
+		<link rel="stylesheet" href="../css/cart.css">
 		<title>购物车</title>
 	</head>
 	<body>
@@ -41,12 +41,59 @@
 		
 		</header>
 		
-		<main class="d-flex flex-column align-items-center">
-			
+		<main class="container d-flex flex-column align-items-center mb-5">
+			<div class="d-flex flex-column cartBody p-3">
+				<div class="form-check d-flex flex-row align-items-center">
+					<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+					<label class="form-check-label flex-grow-1" for="defaultCheck1">
+						<div class="d-flex flex-row align-items-center m-1">
+							<img src="/static/book.png" style="max-height: 100px ;">
+							<p class="m-1">《书名》</p>
+							<p class="flex-grow-1 m-1">详情</p>
+							<p class="mx-2 font-italic m-1" style="text-decoration: line-through;font-size: 15px;">$10</p>
+							<p class="font-weight-bolder m-1" style="font-size: 25px;">$5</p>
+							<button class="btn" type="submit"><img src="/static/next.png" style="max-height: 30px ;"></button>
+						</div>
+					</label>
+				</div>
+				<div class="form-check d-flex flex-row align-items-center">
+					<input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+					<label class="form-check-label flex-grow-1" for="defaultCheck2">
+						<div class="d-flex flex-row align-items-center m-1">
+							<img src="/static/book.png" style="max-height: 100px ;">
+							<p class="m-1">《书名》</p>
+							<p class="flex-grow-1 m-1">详情</p>
+							<p class="mx-2 font-italic m-1" style="text-decoration: line-through;font-size: 15px;">$10</p>
+							<p class="font-weight-bolder m-1" style="font-size: 25px;">$5</p>
+							<button class="btn" type="submit"><img src="/static/next.png" style="max-height: 30px ;"></button>
+						</div>
+					</label>
+				</div>
+			</div>
+			<p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p>
+			<!-- 结算 -->
+			<div class="fixed-bottom d-flex flex-row align-items-center pay">
+				<h3 class="flex-grow-1 m-3">合计：</h3>
+				<p class="font-weight-bolder m-3" style="font-size: 25px;">$10</p>
+				<button class="btn btn-primary m-3" type="submit">购买</button>
+			</div>
 		</main>
 		
-		<footer>
-			<div style="height: 300px"></div>
+		<footer class="mt-auto">
+			<div class="container d-flex flex-column p-3">
+				<div class="d-flex flex-row justify-content-center form-inline">
+					<a class="text-white" href="user.html">关于我们</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a class="text-white" href="mall.html">随便逛逛</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a class="text-white" href="cart.html">购物车</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a class="text-white" href="user.html">个人中心</a>
+				</div>
+				<div class="dropdown-divider"></div>
+				<div class="font-weight-light text-center" style="font-size: 15px">Copyright@网工小组</div>
+			</div>
+
 		</footer>
 		
 		<!-- Optional JavaScript -->
@@ -55,6 +102,6 @@
 		<script rel="script" src="../bootstrap/js/popper.js"></script>
 		<script rel="script" src="../bootstrap/js/bootstrap.js"></script>
 		
-		<script rel="script" src="../js/mall.js"></script>
+		<script rel="script" src="../js/cart.js"></script>
 	</body>
 </html>
