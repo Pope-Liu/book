@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="icon" href="../static/logo.ico" >
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/pay.css" >
+		<title>订单支付</title>
+	</head>
+	<body class="d-flex flex-column h-100">
+		<header class="sticky-top">
+			<nav class="navbar navbar-expand-md">
+				<a class="navbar-brand font-weight-bold text-dark">Book Shop</a>
+				<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarContent"
+						aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+					<img class="navbar-toggler-icon" src="../static/book.png">
+				</button>
+				<div class="collapse navbar-collapse" id="navbarContent">
+					<ul class="navbar-nav mr-5">
+						<li class="nav-item">
+							<a class="nav-link" href="main.html">首页</a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="mall.html">商城</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="cart.html">购物车</a>
+						</li>
+					</ul>
+					<form id="searchForm" class="form-inline ml-2 my-lg-0 ml-auto" onsubmit="search();return false;">
+						<input id="searchText" class="form-control mr-sm-2" type="search" placeholder="Search">
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					</form>
+
+					<div class="mx-lg-5 mx-md-0">
+						<a id="login" class="nav-link font-weight-bold" href="user.html">登录/注册</a>
+					</div>
+				</div>
+			</nav>
+		</header>
+
+		<main class="container d-flex flex-column justify-content-start align-items-center flex-grow-1">
+			<!--商品信息-->
+			<div id="books" class="d-flex flex-column align-items-center w-100 my-5">
+				<div class="d-flex flex-row align-items-center rounded px-3 py-3 mb-5 w-100 text-white" style="background-color: #807B70">
+					<span class="text-center w-25">书籍封面</span>
+					<span class="text-center w-25">书籍信息</span>
+					<span class="text-center " style="width: 10%;">单价</span>
+					<span class="text-center " style="width: 10%;">数量</span>
+					<span class=" text-center " style="width: 10%;">金额</span>
+					<span class=" text-center " style="width: 20%;">操作</span>
+				</div>
+
+				<div v-for="(book,index) in books" class="d-flex flex-row align-items-center rounded px-3 py-3 mb-3 w-100" style="background-color: #807B70">
+					<img :src="book.url" class="img-fluid bookListItem w-25">
+					<div class="d-flex flex-column justify-content-between mx-3 h-auto w-25 text-light">
+						<h4>{{book.name}}</h4>
+						<span>{{book.author}}</span>
+						<div class="d-flex flex-row flex-wrap w-auto mt-3">
+							<a v-for="label in book.labels" class="badge badge-secondary mr-4">{{label}}</a>
+						</div>
+					</div>
+					<div class="d-flex flex-column align-items-center mx-3 h-auto"  style="width: 10%;">
+						<del v-if="book.discount !==1" class="text-light text-center" style="font-size: 20px">${{book.price}}</del>
+						<span class="font-weight-bold text-center" style="font-size: 20px">${{book.price * book.discount}}</span>
+					</div>
+					<div class="d-flex flex-row justify-content-center align-items-center mx-3"  style="width: 10%;">
+						<input class="text-center" style="width: 50px" type="number" :value="book.number" @input="changeNumber($event,index)">
+					</div>
+					<div class="d-flex flex-row justify-content-center align-items-center mx-3 "  style="width: 10%;">
+						<span class="font-weight-bold text-center" style="font-size:20px; color:#e4fcec">${{book.price * book.discount * book.number}}</span>
+					</div>
+					<div class="d-flex flex-column justify-content-center align-items-center mx-3 "  style="width: 20%;">
+						<span class="text-button text-center" @click="bookDetail(book.id)">查看详情</span>
+						<span class="text-button text-center " @click="deleteBook(index)">移除书籍</span>
+					</div>
+				</div>
+
+
+				<div class="d-flex flex-row justify-content-between w-100 mt-auto" style="background-color: #807B70">
+					<div class="text-white ml-3 my-auto">订单总额：${{wholeMoney}}</div>
+					<div class="btn btn-primary">立即支付</div>
+				</div>
+			</div>
+		</main>
+
+		<footer class="mt-auto">
+			<div class="container d-flex flex-column p-2">
+				<div class="d-flex flex-row justify-content-center form-inline">
+					<a class="text-white" href="user.html">关于我们</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a class="text-white" href="mall.html">随便逛逛</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a class="text-white" href="user.html">购物车</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a class="text-white" href="user.html">个人中心</a>
+				</div>
+				<div class="dropdown-divider"></div>
+				<div class="font-weight-light text-center" style="font-size: 15px">Copyright@网工小组</div>
+			</div>
+
+		</footer>
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script rel="script" src="../bootstrap/js/jquery-3.2.1.min.js"></script>
+		<script rel="script" src="../bootstrap/js/popper.js"></script>
+		<script rel="script" src="../bootstrap/js/bootstrap.js"></script>
+		<script rel="script" src="../vue/vue.js"></script>
+		<script rel="script" src="../js/pay.js"></script>
+	</body>
+</html>

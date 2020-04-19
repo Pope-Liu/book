@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+
+		<link rel="stylesheet" href="../css/bookDetail.css">
+		<title>Book Shop</title>
+	</head>
+	<body class="d-flex flex-column h-100">
+		<header class="sticky-top">
+			<nav class="navbar navbar-expand-md">
+				<a class="navbar-brand font-weight-bold text-dark">Book Shop</a>
+				<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarContent"
+						aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+					<img class="navbar-toggler-icon" src="../static/book.png">
+				</button>
+				<div class="collapse navbar-collapse" id="navbarContent">
+					<ul class="navbar-nav mr-5">
+						<li class="nav-item">
+							<a class="nav-link" href="javascript:history.back(1)">< 返回</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="main.html">首页</a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="mall.html">商城</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="cart.html">购物车</a>
+						</li>
+					</ul>
+					<form id="searchForm" class="form-inline ml-2 my-lg-0 ml-auto" onsubmit="search();return false;">
+						<input id="searchText" class="form-control mr-sm-2" type="search" placeholder="Search">
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					</form>
+
+					<div class="mx-lg-5 mx-md-0">
+						<a class="nav-link font-weight-bold" href="user.html">个人中心</a>
+					</div>
+				</div>
+			</nav>
+		</header>
+
+		<main class="my-5">
+			<div id="bookInfo" class="container d-flex flex-column align-items-center">
+				<div class="d-flex flex-row mb-5 w-100">
+					<div class="w-50 p-3 bg-white shadow">
+						<img class="img-fluid mw-100 h-auto" :src="image_Path">
+					</div>
+					<div class="d-flex flex-column ml-5 w-50">
+						<h3 class="text-truncate">{{name_book}}</h3>
+						<p class="my-2">作者：{{author}}</p>
+						<div class="d-flex flex-row align-items-center my-2">
+							<span>标签：</span>
+							<a v-for="label in category" class="badge badge-secondary mr-3 text-light">{{label}}</a>
+						</div>
+						<div v-if="price === good_Price" class="d-flex flex-row form-inline my-2">
+							<div class="w-50">
+								<span>原价：</span>
+								<del>${{price}}</del>
+							</div>
+							<div class="w-50">
+								<span>现价：</span>
+								<span class="font-weight-bolder">${{good_Price}}</span>
+							</div>
+						</div>
+						<div v-else class="d-flex flex-row form-inline my-2">
+							<div class="w-50">
+								<span>价格：</span>
+								<span class="font-weight-bolder">${{price}}</span>
+							</div>
+						</div>
+
+						<div class="d-flex flex-row form-inline my-2">
+							<div class="w-50">
+								<span>出版社：</span>
+								<span class="font-weight-bolder">{{publishName}}</span>
+							</div>
+							<div class="w-50">
+								<span>出版社地址：</span>
+								<span class="font-weight-bolder">{{publishAddress}}</span>
+							</div>
+						</div>
+
+						<div class="dropdown-divider border border-dark"></div>
+
+						<div class="input-group my-2 ">
+							<div class="input-group-prepend">
+								<label class="input-group-text text-white" style="background-color: #5D62B2"
+									   for="bookNumber">选择数量：</label>
+							</div>
+							<input class="form-control" id="bookNumber" type="number" value="0"
+								   @input="changeNumber($event)">
+						</div>
+						<div class="d-flex flex-row form-inline my-2">
+							<div class="w-50">
+								<span>总价：</span>
+								<span class="font-weight-bolder">${{wholeMoney}}</span>
+							</div>
+						</div>
+						<div class="d-flex flex-row align-items-end mt-2 flex-grow-1">
+							<div class="btn btn-primary mr-5">加入购物车</div>
+							<div class="btn btn-danger ml-5" @click="buyBooks()">立即购买</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="w-100 dropdown-divider border border-dark bg-dark"></div>
+
+				<div class="d-flex flex-column my-2 w-100">
+					<h3 class="align-self-center">简介</h3>
+					<p class="align-self-start">
+						{{content}}
+					</p>
+				</div>
+
+				<div class="w-100 dropdown-divider border border-dark bg-dark mb-5"></div>
+
+				<h3 v-if="comments.length !== 0" class="mt-5">评论区</h3>
+
+				<!--评论区-->
+				<div v-if="comments.length !== 0" class="d-flex flex-column align-items-center my-2 w-100">
+					<div v-for="comment in comments"
+						 class="d-flex flex-row justify-content-center w-100 pt-3 my-2 comment">
+						<img class=" rounded-circle align-self-start mr-5" style="width: 100px;height: 100px"
+							 :src="comment.url">
+						<div class="d-flex flex-column flex-grow-1">
+							<span class="mb-3" style="font-size: 1.5rem">{{comment.nickname}}}</span>
+							<p>
+								{{comment.comment}}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="height: 150px">
+
+			</div>
+		</main>
+
+		<footer class="mt-auto">
+			<div class="container d-flex flex-column p-2">
+				<div class="d-flex flex-row justify-content-center form-inline">
+					<a class="text-white" href="user.html">关于我们</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a class="text-white" href="mall.html">随便逛逛</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a class="text-white" href="user.html">购物车</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a class="text-white" href="user.html">个人中心</a>
+				</div>
+				<div class="dropdown-divider"></div>
+				<div class="font-weight-light text-center" style="font-size: 15px">Copyright@网工小组</div>
+			</div>
+
+		</footer>
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS, Bootstrap-select JS-->
+		<script rel="script" src="../bootstrap/js/jquery-3.2.1.min.js"></script>
+		<script rel="script" src="../bootstrap/js/popper.js"></script>
+		<script rel="script" src="../bootstrap/js/bootstrap.js"></script>
+		<script rel="script" src="../vue/vue.js"></script>
+		<script rel="script" src="../js/bookDetail.js"></script>
+	</body>
+</html>

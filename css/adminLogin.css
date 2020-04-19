@@ -1,0 +1,10 @@
+body{
+    /*background-image: url("../static/adminLoginBg.jpg");*/
+    /*background-size: contain;*/
+}
+
+.sign-in{
+    width: 100%;
+    max-width: 300px;
+    margin: auto;
+}

@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="icon" href="../static/logo.ico">
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/main.css">
 		<title>Book Shop</title>
 	</head>
-	<body >
-		<header>
-			<nav class="navbar navbar-expand-md">
+	<body class="d-flex flex-column h-100">
+		<header class="sticky-top">
+			<nav class="navbar navbar-expand-xl">
 				<a class="navbar-brand font-weight-bold text-dark">Book Shop</a>
 				<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarContent"
 						aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,219 +30,181 @@
 							<a class="nav-link" href="cart.html">购物车</a>
 						</li>
 					</ul>
-					<form class="form-inline ml-2 my-lg-0 ml-auto">
-						<input class="form-control mr-sm-2" type="search" placeholder="Search">
+					<form id="searchForm" class="form-inline ml-2 my-lg-0 ml-auto" onsubmit="search();return false;">
+						<input id="searchText" class="form-control mr-sm-2 w-auto" type="search" placeholder="Search">
 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 					</form>
+
 					<div class="mx-lg-5 mx-md-0">
-						<a class="nav-link font-weight-bold" href="user.html">个人中心</a>
+						<a id="login" class="nav-link font-weight-bold" href="user.html">登录/注册</a>
 					</div>
 				</div>
 			</nav>
 		</header>
 
-		<main class="d-flex flex-column align-items-center mb-5">
+		<main class="d-flex flex-column align-items-center mb-auto ">
 
-			<div class="d-flex flex-column justify-content-center align-items-center mainHead">
+			<div class=" flex-column justify-content-center align-items-center mainHead d-none d-lg-flex">
 				<h1 class="display-1 text-light mb-5">Book Mall</h1>
 				<h3 class=" font-italic text-white mb-5">书籍是人类进步的阶梯&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——高尔基</h3>
 				<a class="btn btn-primary py-2 px-3 text-white" href="#main">Get It Now! </a>
 			</div>
 
-			<div id="main" class="container d-flex flex-column justify-content-center">
+			<div id="main" class="container-fluid container-lg d-flex flex-column justify-content-center ">
 				<!--轮播图-->
-				<div class="d-flex mb-5 shadow-lg my-5 mainFirstPart">
+				<div id="carousel" class="d-flex flex-row justify-content-center mb-5 shadow-lg my-5 mainFirstPart col-12">
 
 					<!--轮播图-->
-					<div id="carouselExampleIndicators" class=" carousel slide shadow-lg m-4 w-75 h-auto"
+					<div id="carouselExampleIndicators" class="carousel slide shadow-lg m-4 col-12 col-lg-8 h-auto"
 						 data-ride="carousel">
 						<div id="carouselInner" class="carousel-inner w-100 h-auto">
-							<!--JS控制-->
+							<!--setCarousel()-->
+							<div v-for="(carouselItem,index) in carouselItems"
+								 :class=" {'carousel-item':true,'active':index === 0}">
+								<img :src="carouselItem.image_Path" class="img-fluid mw-100 h-auto">
+							</div>
 						</div>
 					</div>
 
 					<!--评论-->
-					<div class="d-flex flex-column m-4 w-25 h-auto">
-						<img id="bookImage" class="img-fluid mw-100 h-auto" src="../static/book-2435578_1920.jpg">
-						<div id="bookLabels" class="d-flex flex-row flex-wrap w-auto my-3"><!--JS控制-->
+					<div class="d-none d-lg-flex flex-column m-4 w-25 h-auto">
+						<img id="bookImage" class="img-fluid mw-100 h-auto" :src="book.image_Path"/>
+						<div id="bookLabels" class="d-flex flex-row flex-wrap w-auto my-3">
+							<p v-for="label in book.category" class="badge badge-secondary mx-2 my-1">
+								{{label}}
+							</p>
 						</div>
-						<div id="bookDescription" class="flex-grow-1 bookDescription rounded p-2 bg-light"> This is the
-							book Description
+						<div id="bookDescription" class="flex-grow-1 bookDescription rounded p-2 bg-light">
+							{{book.content}}
 						</div>
 					</div>
+
+					<a id="bookLink" class="stretched-link" :href="'bookDetail.html?bookID=' + book.id_book"></a>
 				</div>
 
 				<!--每日推荐-->
-				<div class="d-flex flex-column my-5">
-					<div class="d-flex flex-row justify-content-between align-items-center">
+				<div class="d-flex flex-column my-5 px-0" >
+					<div class="d-flex flex-row justify-content-between align-items-center ">
 						<h3 class="ml-3">每日推荐</h3>
-						<div class="d-flex flex-row badge badge-secondary btn py-1 px-2 mr-3 shadow">
+						<div class="d-flex flex-row badge badge-secondary btn py-1 px-2 mr-5 shadow"
+							 onclick="changeDailyRecommend()">
 							<span class="anotherBatch mr-1">换一批</span>
-							<img class="" style="width: 1rem; height: 1rem;" src="../static/anotherBatch.png">
+							<img style="width: 1rem; height: 1rem;" src="../static/anotherBatch.png">
 						</div>
 					</div>
 
-					<div class="container d-flex flex-row justify-content-between">
-						<div class="card shadow mr-3 w-auto h-auto ">
-							<img class="img-fluid mw-100 h-auto" src="../static/book-3692762_1920.jpg"
-								 alt="book">
-							<div class="bookInfo h-auto">
-								<div class="bookPrice my-2 mr-3 px-3 py-1 rounded">$10</div>
+					<div id="recommend" class="d-flex flex-column flex-md-row justify-content-around">
+						<!--setDailyRecommend()-->
+						<div v-for="recommendItem in recommendItems" class="card shadow h-auto">
+							<img class="img-fluid mw-100 h-auto" :src="recommendItem.image_Path">
+							<div class="d-flex flex-row-reverse justify-content-between flex-grow-1 bookInfo h-auto px-3">
+								<div class="d-flex flex-row justify-content-between my-auto">
+									<del v-if="recommendItem.good_Price !== recommendItem.price">${{recommendItem.price}}</del>
+									<p class="font-weight-bold my-auto">${{recommendItem.good_Price}}</p>
+								</div>
 							</div>
-						</div>
-						<div class="card shadow mx-3 w-auto h-auto ">
-							<img class="img-fluid mw-100 h-auto" src="../static/book-3692762_1920.jpg"
-								 alt="book">
-							<div class="bookInfo">
-								<div class="bookPrice my-2 mr-3 px-3 py-1 rounded">$10</div>
-							</div>
-						</div>
-						<div class="card shadow ml-3 w-auto h-auto ">
-							<img class="img-fluid mw-100 h-auto" src="../static/book-3692762_1920.jpg"
-								 alt="book">
-							<div class="bookInfo">
-								<div class="bookPrice my-2 mr-3 px-3 py-1 rounded">$10</div>
-							</div>
+							<a class="stretched-link" :href="'bookDetail.html?bookID=' + recommendItem.id_book"></a>
 						</div>
 					</div>
 				</div>
 
 				<!--销量榜-->
-				<div class="d-flex flex-column my-5 bg-light">
-					<div class="bg-light">
-						<ul class="nav nav-tabs table-secondary">
-							<li class="nav-item">
-								<a class="nav-link active" data-toggle="tab" href="#weekSellWell">本周热销榜</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#monthSellWell">本月热销榜</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#discount">优惠</a>
-							</li>
-						</ul>
-					</div>
+				<div class="d-flex flex-column my-5">
 
-					<div class="tab-content">
+					<ul class="nav nav-tabs table-secondary" style="background-color: #EBFCDB">
+						<li class="nav-item">
+							<a class="nav-link active" data-toggle="tab" href="#weekSellWell">本周热销榜</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#monthSellWell">本月热销榜</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#discount">优惠</a>
+						</li>
+					</ul>
+
+					<div class="tab-content ">
 						<div id="weekSellWell" class="tab-pane fade show active">
-							<div class="mt-2">
-								<ul class="list-group">
-									<li class=" list-group-item d-flex flex-row list-group-item-action">
-										<img class="img-fluid bookListItem col-3" src="../static/head.jpg" alt="book list item image">
-										<div class="d-flex flex-column justify-content-between flex-grow-1 ml-4" style="max-width: 50%" >
-											<h4 class="font-italic font-weight-bold d-inline-block text-truncate " style="max-width: 100%">This is bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbook name</h4>
-											<p>Author:&nbsp;&nbsp;<strong>Pope</strong></p>
-											<div class="d-flex flex-row flex-wrap w-auto mt-3">
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-											</div>
-										</div>
-										<div class="d-flex flex-column justify-content-center align-items-center mx-5">
-											<div class=" my-2 mr-3 px-3 py-1 rounded text-center">
-												<p class="mx-2 font-italic originalPrice" style="text-decoration: line-through">$10</p>
-												<p class="font-weight-bolder salePrice">$5</p>
-											</div>
-										</div>
-										<a class="stretched-link" href="user.html"></a>
-									</li>
-									<li class=" list-group-item d-flex flex-row list-group-item-action">
-										<img class="img-fluid bookListItem col-3" src="../static/head.jpg" alt="book list item image">
-										<div class="d-flex flex-column justify-content-between flex-grow-1 ml-4" style="max-width: 50%" >
-											<h4 class="font-italic font-weight-bold d-inline-block text-truncate " style="max-width: 100%">This is bbbbbbbbbbbbbbbook name</h4>
-											<p>Author:&nbsp;&nbsp;<strong>Pope</strong></p>
-											<div class="d-flex flex-row flex-wrap w-auto mt-3">
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-											</div>
-										</div>
-										<div class="d-flex flex-column justify-content-center align-items-center mx-5">
-											<div class=" my-2 mr-3 px-3 py-1 rounded text-center">
-												<p class="mx-2 font-italic originalPrice" style="text-decoration: line-through">$10</p>
-												<p class="font-weight-bolder salePrice">$5</p>
-											</div>
-										</div>
-										<a class="stretched-link" href="user.html"></a>
-										<!--										<div class="d-flex flex-column justify-content-center">-->
-										<!--											<a class="btn btn-primary stretched-link" href="user.html"></a>-->
-										<!--										</div>-->
-									</li>
-									<li class=" list-group-item d-flex flex-row list-group-item-action">
-										<img class="img-fluid bookListItem col-3" src="../static/head.jpg" alt="book list item image">
-										<div class="d-flex flex-column justify-content-between flex-grow-1 ml-4" style="max-width: 50%" >
-											<h4 class="font-italic font-weight-bold d-inline-block text-truncate " style="max-width: 100%">This is bbbbbbbbbbbbbbbook name</h4>
-											<p>Author:&nbsp;&nbsp;<strong>Pope</strong></p>
-											<div class="d-flex flex-row flex-wrap w-auto mt-3">
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-											</div>
-										</div>
-										<div class="d-flex flex-column justify-content-center align-items-center mx-5">
-											<div class=" my-2 mr-3 px-3 py-1 rounded text-center">
-												<p class="mx-2 font-italic originalPrice" style="text-decoration: line-through">$10</p>
-												<p class="font-weight-bolder salePrice">$5</p>
-											</div>
-										</div>
-										<a class="stretched-link" href="user.html"></a>
-										<!--										<div class="d-flex flex-column justify-content-center">-->
-										<!--											<a class="btn btn-primary stretched-link" href="user.html"></a>-->
-										<!--										</div>-->
-									</li>
-									<li class=" list-group-item d-flex flex-row list-group-item-action">
-										<img class="img-fluid bookListItem col-3" src="../static/head.jpg" alt="book list item image">
-										<div class="d-flex flex-column justify-content-between flex-grow-1 ml-4" style="max-width: 50%" >
-											<h4 class="font-italic font-weight-bold d-inline-block text-truncate " style="max-width: 100%">This is bbbbbbbbbbbbbbbook name</h4>
-											<p>Author:&nbsp;&nbsp;<strong>Pope</strong></p>
-											<div class="d-flex flex-row flex-wrap w-auto mt-3">
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-												<p class="badge badge-secondary mx-2">标签</p>
-											</div>
-										</div>
-										<div class="d-flex flex-column justify-content-center align-items-center mx-5">
-											<div class=" my-2 mr-3 px-3 py-1 rounded text-center">
-												<p class="mx-2 font-italic originalPrice" style="text-decoration: line-through">$10</p>
-												<p class="font-weight-bolder salePrice">$5</p>
-											</div>
-										</div>
-										<a class="stretched-link" href="user.html"></a>
-										<!--										<div class="d-flex flex-column justify-content-center">-->
-										<!--											<a class="btn btn-primary stretched-link" href="user.html"></a>-->
-										<!--										</div>-->
-									</li>
-								</ul>
-							</div>
+							<!--本周热销榜-->
+							<ul class="list-group">
+								<li v-for="weekSellWellItem in weekSellWellItems" class="list-group-item d-flex flex-row justify-content-start list-group-item-action h-auto">
+									<div class="col-3">
+										<img class="img-fluid h-auto mw-100" :src="weekSellWellItem.image_Path">
+									</div>
 
+									<div class="d-flex flex-column justify-content-between flex-grow-1 ml-2 ml-lg-4" style="max-width: 50%">
+										<h4 class="font-italic font-weight-bold d-inline-block text-truncate mw-100">{{weekSellWellItem.name_book}}</h4>
+										<p>Author:&nbsp;&nbsp;<strong>{{weekSellWellItem.author}}</strong></p>
+										<div class="d-none d-lg-flex flex-row flex-wrap w-auto mt-auto">
+											<p v-for="label in weekSellWellItem.category" class="badge badge-secondary mx-2">{{label}}</p>
+										</div>
+									</div>
+									<div class="d-flex flex-column justify-content-center align-items-center">
+										<div class="my-auto mr-3 px-3 py-1 rounded text-center">
+											<del v-if="weekSellWellItem.good_Price !== weekSellWellItem.price" class="originalPrice font-italic">${{weekSellWellItem.price}}</del>
+											<p class="font-weight-bolder">${{weekSellWellItem.good_Price}}</p>
+										</div>
+									</div>
+									<a class="stretched-link" :href="'bookDetail.html?bookID=' + weekSellWellItem.id_book"></a>
+								</li>
+							</ul>
 						</div>
 						<div id="monthSellWell" class="tab-pane fade">
-							本月热销榜
+							<!--本月热销榜-->
+							<ul class="list-group">
+								<li v-for="monthSellWellItem in monthSellWellItems" class="list-group-item d-flex flex-row list-group-item-action">
+									<img class="img-fluid bookListItem col-3" :src="monthSellWellItem.url">
+									<div class="d-flex flex-column justify-content-between flex-grow-1 ml-4" style="max-width: 50%">
+										<h4 class="font-italic font-weight-bold d-inline-block text-truncate mw-100">{{monthSellWellItem.name_book}}</h4>
+										<p>Author:&nbsp;&nbsp;<strong>{{monthSellWellItem.author}}</strong></p>
+										<div class="d-none d-lg-flex flex-row flex-wrap w-auto mt-3">
+											<p v-for="label in monthSellWellItem.category" class="badge badge-secondary mx-2">{{label}}</p>
+										</div>
+									</div>
+									<div class="d-flex flex-column justify-content-center align-items-center mx-5">
+										<div class="my-2 mr-3 px-3 py-1 rounded text-center">
+											<del v-if="monthSellWellItem.good_Price !== monthSellWellItem.price" class="originalPrice font-italic">${{monthSellWellItem.price}}</del>
+											<p class="font-weight-bolder salePrice">${{monthSellWellItem.good_Price}}</p>
+										</div>
+									</div>
+									<a class="stretched-link" :href="'bookDetail.html?bookID=' + monthSellWellItem.id_book"></a>
+								</li>
+							</ul>
 						</div>
 						<div id="discount" class="tab-pane fade">
-							优惠
+							<!--优惠-->
+							<ul class="list-group">
+								<li v-for="discountItem in discountItems" class="list-group-item d-flex flex-row list-group-item-action">
+									<img class="img-fluid bookListItem col-3" :src="discountItem.url">
+									<div class="d-flex flex-column justify-content-between flex-grow-1 ml-4" style="max-width: 50%">
+										<h4 class="font-italic font-weight-bold d-inline-block text-truncate mw-100">{{discountItem.name_book}}</h4>
+										<p>Author:&nbsp;&nbsp;<strong>{{discountItem.author}}</strong></p>
+										<div class="d-none d-lg-flex flex-row flex-wrap w-auto mt-3">
+											<p v-for="label in discountItem.category" class="badge badge-secondary mx-2">{{label}}</p>
+										</div>
+									</div>
+									<div class="d-flex flex-column justify-content-center align-items-center mx-5">
+										<div class="my-2 mr-3 px-3 py-1 rounded text-center">
+											<del v-if="discountItem.good_Price !== discountItem.price" class="originalPrice font-italic">${{discountItem.price}}</del>
+											<p class="font-weight-bolder salePrice">${{discountItem.good_Price}}</p>
+										</div>
+									</div>
+									<a class="stretched-link" :href="'bookDetail.html?bookID=' + discountItem.id_book"></a>
+								</li>
+							</ul>
 						</div>
 					</div>
+					<div class="d-flex flex-row-reverse bg-white mt-2 pr-4 w-auto">
+						<a class=" my-1 bg-dark text-white py-1 px-2" style="font-size: 0.8rem;">查看更多</a>
+					</div>
 				</div>
-			</div>
 
+			</div>
 
 		</main>
 
 		<footer class="mt-auto">
-			<div class="container d-flex flex-column p-3">
+			<div class="container d-flex flex-column p-2">
 				<div class="d-flex flex-row justify-content-center form-inline">
 					<a class="text-white" href="user.html">关于我们</a>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -262,7 +225,7 @@
 		<script rel="script" src="../bootstrap/js/jquery-3.2.1.min.js"></script>
 		<script rel="script" src="../bootstrap/js/popper.js"></script>
 		<script rel="script" src="../bootstrap/js/bootstrap.js"></script>
-
+		<script rel="script" src="../vue/vue.js"></script>
 		<script rel="script" src="../js/main.js"></script>
 	</body>
 </html>

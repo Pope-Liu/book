@@ -1,5 +1,4 @@
 html{
-
 }
 body{
     background-color: #EBFCDB;
@@ -14,23 +13,17 @@ footer{
     background-image: url("../static/head.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    /*background-size: contain;*/
     width: 100%;
     height: 550px;
 }
 .mainFirstPart{
+    /*为了限制拉伸链接的范围*/
+    position: relative;
     background-color: #807B70;
 }
 .bookInfo{
-    display: flex;
-    flex-direction: row-reverse;
-    flex-grow: 1;
     background-color: #FCF5EC;
 }
-/*.bookPrice{*/
-/*    font-size: 15px;*/
-/*    background-color: #8CCAAE;*/
-/*}*/
 
 .originalPrice{
     font-size: 15px;
@@ -40,9 +33,14 @@ footer{
     font-size: 25px;
 }
 
+.recommendImage{
+    width: 240px;
+    height: 150px;
+}
 
 .bookDescription{
     overflow: auto;
+    word-break: keep-all;
     text-overflow:ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -50,8 +48,4 @@ footer{
 }
 .anotherBatch{
     font-size: 1rem;
-}
-.bookListItem{
-    width: 240px;
-    height: 150px;
 }

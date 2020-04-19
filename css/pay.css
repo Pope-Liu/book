@@ -1,0 +1,19 @@
+html{
+}
+body{
+    background-color: #EBFCDB;
+}
+header{
+    background-color: #F8AF64;
+}
+footer{
+    background-color: #92B3CF;
+}
+
+.text-button{
+    color: white;
+    cursor: pointer;
+}
+.text-button:hover{
+    color: black;
+}

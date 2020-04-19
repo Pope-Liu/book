@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100 bg-light">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="icon" href="../static/logo.ico">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../bootstrap-select/css/bootstrap-select.min.css">
+		<link rel="stylesheet" href="../css/bookManage-change.css">
+		<title>网上书店管理系统</title>
+	</head>
+	<body class="d-flex flex-column w-100 " style="background-color: #ECECEC;">
+		<header class="w-100 bg-light px-3 py-2">
+			<nav class="navbar">
+				<a class="navbar-brand font-weight-bold text-dark">Book Shop</a>
+				<ul class="nav">
+					<li class="nav-item">
+						<a class="nav-link active" href="bookManage-add.html">添加书籍</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="bookManage-search.html">修改书籍</a>
+					</li>
+
+				</ul>
+			</nav>
+		</header>
+		<main class="w-100 h-auto mt-lg-5 mt-2">
+			<div class="container d-flex flex-column align-items-center bg-light h-100 p-5">
+				<h3 class="mb-5">修改信息</h3>
+				<form id="book" class="d-flex flex-column mx-lg-5 px-lg-5 was-validated" enctype="multipart/form-data">
+					<div class="input-group my-2">
+						<div class="input-group-prepend">
+							<label for="name" class="input-group-text">书名：</label>
+						</div>
+						<input id="name" type="text" class="form-control is-invalid" :value="name_book" required>
+					</div>
+					<div class="input-group my-2">
+						<div class="input-group-prepend">
+							<label for="author" class="input-group-text">作者：</label>
+						</div>
+						<input id="author" type="text" class="form-control is-invalid" :value="author" required>
+					</div>
+					<div class="input-group my-2">
+						<div class="input-group-prepend">
+							<label for="price" class="input-group-text">价格（元）：</label>
+						</div>
+						<input id="price" type="number" class="form-control is-invalid" :value="price" required>
+					</div>
+					<div class="input-group my-2">
+						<div class="input-group-prepend">
+							<label for="bookNum" class="input-group-text">数量：</label>
+						</div>
+						<input id="bookNum" type="number" class="form-control is-invalid" :value="bookNum" required>
+					</div>
+					<div class="input-group my-2">
+						<div class="input-group-prepend">
+							<label for="goodPrice" class="input-group-text">折扣价（元）：</label>
+						</div>
+						<input id="goodPrice" type="number" class="form-control is-invalid" :value="good_Price" required>
+					</div>
+					<div class="input-group my-2">
+						<div class="input-group-prepend">
+							<label for="saleNum" class="input-group-text">折扣数量：</label>
+						</div>
+						<input id="saleNum" type="number" class="form-control is-invalid" :value="saleNum" required>
+					</div>
+					<div class="input-group my-2">
+						<div class="input-group-prepend">
+							<label for="onSaleTime" class="input-group-text">折扣时间：</label>
+						</div>
+						<input id="onSaleTime" type="date" class="form-control is-invalid" :value="onSaleTime" required>
+					</div>
+					<div class="input-group my-2">
+						<div class="input-group-prepend">
+							<label for="publishName" class="input-group-text">出版社：</label>
+						</div>
+						<input id="publishName" type="text" class="form-control is-invalid" :value="publishName" required>
+					</div>
+					<div class="input-group my-2">
+						<div class="input-group-prepend">
+							<label for="publishAddress" class="input-group-text">出版社地址：</label>
+						</div>
+						<input id="publishAddress" type="text" class="form-control is-invalid" :value="publishAddress" required>
+					</div>
+					<div class="input-group my-2">
+						<div class="input-group-prepend">
+							<span class="input-group-text">封面：</span>
+						</div>
+						<div class="custom-file">
+							<input type="file" class="custom-file-input is-invalid" id="image" onchange="document.getElementById('imageName').innerText = this.files[0].name" required>
+							<label id="imageName" class="custom-file-label text-truncate" for="image">请选择文件</label>
+						</div>
+					</div>
+					<div class="input-group my-2">
+						<div class="input-group-prepend">
+							<span class="input-group-text">语言：</span>
+						</div>
+						<div class="d-flex flex-row flex-grow-1 justify-content-around w-auto m-auto">
+							<div class="custom-control custom-radio">
+								<input type="radio" class="custom-control-input" id="Chinese" name="radio-stacked" required>
+								<label class="custom-control-label" for="Chinese">中文</label>
+							</div>
+							<div class="custom-control custom-radio">
+								<input type="radio" class="custom-control-input" id="English" name="radio-stacked" required>
+								<label class="custom-control-label" for="English">英文</label>
+							</div>
+						</div>
+
+					</div>
+
+
+					<div class="input-group my-2">
+						<div class="input-group-prepend">
+							<label for="type" class="input-group-text">种类：</label>
+						</div>
+						<select id="type" multiple class="selectpicker show-tick form-control is-invalid" required>
+							<option value="1">计算机类</option>
+							<option value="2">人文类</option>
+							<option value="3">工程类</option>
+							<option value="3">哲学类</option>
+						</select>
+					</div>
+					<div class="input-group my-2">
+						<div class="input-group-prepend">
+							<label for="description" class="input-group-text">描述：</label>
+						</div>
+						<textarea id="description" class="form-control is-invalid" style="resize: none;height: 100px;" ></textarea>
+					</div>
+					<div class="btn btn-primary mt-4" @click="sub()">提交</div>
+					<div class="btn btn-danger mt-4" @click="del()">下架</div>
+				</form>
+			</div>
+		</main>
+
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script rel="script" src="../bootstrap/js/jquery-3.2.1.min.js"></script>
+		<script rel="script" src="../bootstrap/js/popper.js"></script>
+		<script rel="script" src="../bootstrap/js/bootstrap.js"></script>
+		<script ref="script" src="../bootstrap-select/js/bootstrap-select.min.js"></script>
+		<script rel="script" src="../vue/vue.js"></script>
+		<script ref="script" src="../js/bookManage-change.js"></script>
+	</body>
+</html>

@@ -1,0 +1,18 @@
+html{
+
+}
+body{
+    background-color: #EBFCDB;
+}
+header{
+    background-color: #F8AF64;
+}
+
+.comment{
+    border-top: #0b2e13 1px solid;
+    border-bottom: #0b2e13 1px solid;
+}
+
+footer{
+    background-color: #92B3CF;
+}

@@ -1,103 +1,115 @@
-//轮播图图片
-var carouselImages = [
-	{
-		url: "../static/book-2391006_1920.jpg",
-		labels: ["图片一", "测试", "图片"],
-		description: "This is the first book."
-	},
-	{
-		url: "../static/book-3692762_1920.jpg",
-		labels: ["图片二", "测试", "图片"],
-		description: "This is the second book."
-	},
-	{
-		url: "../static/book-2435578_1920.jpg",
-		labels: ["图片三", "测试", "图片"],
-		description: "This is the third book."
-	}
-];
-//获取轮播图图片
+// header("Access-Control-Allow-Origin:*");
+// /*星号表示所有的域都可以接受，*/
+// header("Access-Control-Allow-Methods:GET,POST");
 
-//设置html轮播图
-{
-	let carouselInner = document.getElementById("carouselInner");
-	let carouselInnerSrc = "";
-	for (let i = 0; i < carouselImages.length; i++) {
-		if (i === 0) {
-			carouselInnerSrc +=
-				"<div class = 'carousel-item active'>" +
-				"<img src='" + carouselImages[i].url + "' class = 'img-fluid mw-100 h-auto' alt='book image'>" +
-				"</div>"
-		} else {
-			carouselInnerSrc +=
-				"<div class = 'carousel-item'>" +
-				"<img src='" + carouselImages[i].url + "' class = 'img-fluid mw-100 h-auto' alt='book image'>" +
-				"</div>"
+
+let carouselBooks = [];
+let recommendBooks = [];
+let weekSellWellBooks = [];//本周热销榜书籍信息
+let monthSellWellBooks = [];//本月热销榜单
+let discountBooks = [];
+
+$.ajax({
+	type:"GET",
+	url:"http://localhost:8080/book/getThisWeekHotBook",
+	success:function (res) {
+		if(res.resultCode === 200){
+			weekSellWellBooks.$data.weekSellWellItems = res.data;
+			console.log(res.data)
+		}else {
+			alert("请求出错！")
 		}
+	},
+	error:function (res) {
+		console.log(res)
 	}
-	carouselInner.innerHTML = carouselInnerSrc;
-}
+})
 
-//设置轮播图中的书籍信息部分
-{
-	//设置书籍图片
-	let bookImage = document.getElementById("bookImage");
-	bookImage.src = carouselImages[0].url;
-	//设置书籍标签
-	let bookLabels = document.getElementById("bookLabels");
-	let labels = "";
-	for (let i = 0; i < carouselImages[0].labels.length; i++) {
-		labels += "<p class='badge badge-secondary mx-2 my-1'>" + carouselImages[0].labels[i] + "</p>";
+$.ajax({
+	type:"GET",
+	url:"http://localhost:8080/book/getThisMonthHotBook",
+	success:function (res) {
+		if(res.resultCode === 200){
+			monthSellWellBooks.$data.monthSellWellItems = res.data;
+			console.log(res.data)
+			for(let  i = 0; i < res.data; i++){
+				if(i <= 4){
+					carousel.$data.carouselItems.push(res.data[i])
+				}else {
+					monthSellWell.$data.monthSellWellItems.push(res.data[i])
+				}
+			}
+		carousel.$data.book = carousel.$data.carouselItems[0];
+		}else {
+			alert("请求出错！")
+		}
+	},
+	error:function (res) {
+		console.log(res)
 	}
-	bookLabels.innerHTML = labels;
-	//设置描述
-	let bookDescription = document.getElementById("bookDescription");
-	bookDescription.innerText = carouselImages[0].description;
-}
+})
 
-//当轮播图切换时调用该事件
-$('#carouselExampleIndicators').on('slide.bs.carousel', function (event) {
-	//设置书籍图片
-	let bookImage = document.getElementById("bookImage");
-	bookImage.src = carouselImages[event.to].url;
-	//设置书籍标签
-	let bookLabels = document.getElementById("bookLabels");
-	let labels = "";
-	for (let i = 0; i < carouselImages[event.to].labels.length; i++) {
-		labels += "<p class='badge badge-secondary mx-2 my-1'>" + carouselImages[event.to].labels[i] + "</p>";
+$.ajax({
+	type:"GET",
+	url:"http://localhost:8080/book/DiscountBook",
+	success:function (res) {
+		if(res.resultCode === 200){
+			recommend.$data.recommendItems = res.data;
+			console.log(res.data)
+		}else {
+			alert("请求出错！")
+		}
+	},
+	error:function (res) {
+		alert("网络请求失败！")
 	}
-	bookLabels.innerHTML = labels;
-	//设置描述
-	let bookDescription = document.getElementById("bookDescription");
-	bookDescription.innerText = carouselImages[event.to].description;
+})
+
+
+let carousel = new Vue({
+	el: '#carousel',
+	data: {
+		carouselItems:carouselBooks,
+		book:{}
+	},
+	created(){
+		let that = this;
+		that.book = that.carouselItems[0]
+	}
 });
 
+let recommend = new Vue({
+	el:'#recommend',
+	data:{
+		recommendItems:recommendBooks
+	}
+});
 
-function previous() {
+let weekSellWell = new Vue({
+	el:'#weekSellWell',
+	data:{
+		weekSellWellItems:weekSellWellBooks
+	}
+})
 
-}
+let monthSellWell = new Vue({
+	el:'#monthSellWell',
+	data:{
+		monthSellWellItems:monthSellWellBooks
+	}
+})
 
-function previous_selected() {
-	let previous = document.getElementById("previous");
-	previous.src = "../static/previous_selected.png";
-}
+let discount = new Vue({
+	el:'#discount',
+	data:{
+		discountItems:discountBooks
+	}
+})
 
-function previous_unselected() {
-	let previous = document.getElementById("previous");
-	previous.src = "../static/previous.png";
-}
 
-function next() {
 
-}
-
-function next_selected() {
-	let next = document.getElementById("next");
-	next.src = "../static/next_selected.png";
-}
-
-function next_unselected() {
-	let next = document.getElementById("next");
-	next.src = "../static/next.png";
-}
-
+//-----------------bootstrap内置函数---------------------------
+//当轮播图切换时调用该事件
+$('#carouselExampleIndicators').on('slide.bs.carousel', function (event) {
+	carousel.$data.book = carousel.$data.carouselItems[event.to]
+});
