@@ -1,7 +1,3 @@
-// header("Access-Control-Allow-Origin:*");
-// /*星号表示所有的域都可以接受，*/
-// header("Access-Control-Allow-Methods:GET,POST");
-
 
 let carouselBooks = [];
 let recommendBooks = [];
@@ -30,8 +26,7 @@ $.ajax({
 	url:"http://localhost:8080/book/getThisMonthHotBook",
 	success:function (res) {
 		if(res.resultCode === 200){
-			monthSellWellBooks.$data.monthSellWellItems = res.data;
-			console.log(res.data)
+
 			for(let  i = 0; i < res.data; i++){
 				if(i <= 4){
 					carousel.$data.carouselItems.push(res.data[i])

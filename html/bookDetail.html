@@ -61,7 +61,7 @@
 							<span>标签：</span>
 							<a v-for="label in category" class="badge badge-secondary mr-3 text-light">{{label}}</a>
 						</div>
-						<div v-if="price === good_Price" class="d-flex flex-row form-inline my-2">
+						<div v-if="price !== good_Price" class="d-flex flex-row form-inline my-2">
 							<div class="w-50">
 								<span>原价：</span>
 								<del>${{price}}</del>
