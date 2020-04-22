@@ -3,14 +3,15 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="icon" href="../static/logo.ico" >
 		
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/mall.css">
 		<title>商城</title>
 	</head>
-	<body>
-		<header>
+	<body class="d-flex flex-column h-100">
+		<header class="sticky-top">
 			<nav class="navbar navbar-expand-md">
 				<a class="navbar-brand font-weight-bold text-dark">Book Shop</a>
 				<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarContent"
@@ -29,30 +30,63 @@
 							<a class="nav-link" href="cart.html">购物车</a>
 						</li>
 					</ul>
-					<form class="form-inline my-2 my-lg-0 ml-auto">
-						<input class="form-control mr-sm-2" type="search" placeholder="Search">
+					<form id="searchForm" class="form-inline ml-2 my-lg-0 ml-auto" onsubmit="search();return false;">
+						<input id="searchText" class="form-control mr-sm-2" type="search" placeholder="Search">
 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 					</form>
-					<div class="mx-5">
-						<a class="nav-link font-weight-bold" href="user.html">个人中心</a>
+
+					<div class="mx-lg-5 mx-md-0">
+						<a id="login" class="nav-link font-weight-bold" href="user.html">登录/注册</a>
 					</div>
 				</div>
 			</nav>
-		
 		</header>
 		
-		<main class="d-flex flex-column align-items-center mb-5">
-			
+		<main class="container d-flex flex-column align-items-center mb-5">
+			<div class="d-flex flex-row justify-content-start align-items-center mallHead p-3 mt-3 mb-2">
+				<form class="form-inline mr-auto">
+					<input class="form-control mx-1" type="search" placeholder="Search">
+					<button class="btn btn-outline-success mx-1" type="submit">Search</button>
+				</form>
+				<form class="btn-group dropleft">
+					<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						类别
+					  </button>
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+						<button class="dropdown-item" type="button">类别1</button>
+						<button class="dropdown-item" type="button">类别2</button>
+						<button class="dropdown-item" type="button">类别3</button>
+					  </div>
+				</form>
+			</div>
+			<div id="books">
+				<div v-for="(book,index) in books" class="d-flex flex-row align-items-center p-3 mb-2 mallitem" @click="bookDetail(book.id)">
+					<img class="img-fluid bookListItem col-3" src="../static/head.jpg" alt="book list item image">
+					<div class="text-dark d-flex flex-column justify-content-between flex-grow-1 ml-4" style="max-width: 50%" >
+						<h4 class="font-italic font-weight-bold d-inline-block text-truncate" style="max-width: 100%">{{book.name}}</h4>
+						<p>Author:&nbsp;&nbsp;<strong>{{book.author}}</strong></p>
+						<div class="d-flex flex-row flex-wrap w-auto mt-3">
+							<p v-for="label in book.labels" class="badge badge-secondary mx-2">{{label}}</p>
+						</div>
+					</div>
+					<div class="d-flex flex-column justify-content-center align-items-center mx-5">
+						<div class=" my-2 mr-3 px-3 py-1 rounded text-center">
+							<p class="mx-2 font-italic originalPrice" style="text-decoration: line-through">${{book.price}}</p>
+							<p class="font-weight-bolder salePrice">${{book.price * book.discount}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</main>
 		
 		<footer class="mt-auto">
-			<div class="container d-flex flex-column p-3">
+			<div class="container d-flex flex-column p-2">
 				<div class="d-flex flex-row justify-content-center form-inline">
 					<a class="text-white" href="user.html">关于我们</a>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
 					<a class="text-white" href="mall.html">随便逛逛</a>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
-					<a class="text-white" href="cart.html">购物车</a>
+					<a class="text-white" href="user.html">购物车</a>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
 					<a class="text-white" href="user.html">个人中心</a>
 				</div>
@@ -67,7 +101,7 @@
 		<script rel="script" src="../bootstrap/js/jquery-3.2.1.min.js"></script>
 		<script rel="script" src="../bootstrap/js/popper.js"></script>
 		<script rel="script" src="../bootstrap/js/bootstrap.js"></script>
-		
+		<script rel="script" src="../vue/vue.js"></script>
 		<script rel="script" src="../js/mall.js"></script>
 	</body>
 </html>

@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="icon" href="../static/logo.ico" >
 		
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
@@ -10,7 +11,7 @@
 		<title>购物车</title>
 	</head>
 	<body>
-		<header>
+		<header class="sticky-top">
 			<nav class="navbar navbar-expand-md">
 				<a class="navbar-brand font-weight-bold text-dark">Book Shop</a>
 				<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarContent"
@@ -29,53 +30,60 @@
 							<a class="nav-link" href="cart.html">购物车</a>
 						</li>
 					</ul>
-					<form class="form-inline my-2 my-lg-0 ml-auto">
-						<input class="form-control mr-sm-2" type="search" placeholder="Search">
+					<form id="searchForm" class="form-inline ml-2 my-lg-0 ml-auto" onsubmit="search();return false;">
+						<input id="searchText" class="form-control mr-sm-2" type="search" placeholder="Search">
 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 					</form>
-					<div class="mx-5">
-						<a class="nav-link font-weight-bold" href="user.html">个人中心</a>
+
+					<div class="mx-lg-5 mx-md-0">
+						<a id="login" class="nav-link font-weight-bold" href="user.html">登录/注册</a>
 					</div>
 				</div>
 			</nav>
-		
 		</header>
 		
 		<main class="container d-flex flex-column align-items-center mb-5">
-			<div class="d-flex flex-column cartBody p-3">
-				<div class="form-check d-flex flex-row align-items-center">
-					<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-					<label class="form-check-label flex-grow-1" for="defaultCheck1">
-						<div class="d-flex flex-row align-items-center m-1">
-							<img src="/static/book.png" style="max-height: 100px ;">
-							<p class="m-1">《书名》</p>
-							<p class="flex-grow-1 m-1">详情</p>
-							<p class="mx-2 font-italic m-1" style="text-decoration: line-through;font-size: 15px;">$10</p>
-							<p class="font-weight-bolder m-1" style="font-size: 25px;">$5</p>
-							<button class="btn" type="submit"><img src="/static/next.png" style="max-height: 30px ;"></button>
-						</div>
-					</label>
+			
+			<div id="books" class="d-flex flex-column align-items-center w-100 my-5">
+				<div class="d-flex flex-row align-items-center rounded px-3 py-3 mb-5 text-white cartitem">
+					<span class="text-center w-25">书籍封面</span>
+					<span class="text-center w-25">书籍信息</span>
+					<span class="text-center " style="width: 10%;">单价</span>
+					<span class="text-center " style="width: 10%;">数量</span>
+					<span class=" text-center " style="width: 10%;">金额</span>
+					<span class=" text-center " style="width: 20%;">操作</span>
 				</div>
-				<div class="form-check d-flex flex-row align-items-center">
-					<input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-					<label class="form-check-label flex-grow-1" for="defaultCheck2">
-						<div class="d-flex flex-row align-items-center m-1">
-							<img src="/static/book.png" style="max-height: 100px ;">
-							<p class="m-1">《书名》</p>
-							<p class="flex-grow-1 m-1">详情</p>
-							<p class="mx-2 font-italic m-1" style="text-decoration: line-through;font-size: 15px;">$10</p>
-							<p class="font-weight-bolder m-1" style="font-size: 25px;">$5</p>
-							<button class="btn" type="submit"><img src="/static/next.png" style="max-height: 30px ;"></button>
+
+				<div v-for="(book,index) in books" class="d-flex flex-row align-items-center cartitem rounded px-3 py-3 mb-3">
+					<img :src="book.url" class="img-fluid bookListItem w-25">
+					<div class="d-flex flex-column justify-content-between mx-3 h-auto w-25 text-light">
+						<h4>{{book.name}}</h4>
+						<span>{{book.author}}</span>
+						<div class="d-flex flex-row flex-wrap w-auto mt-3">
+							<a v-for="label in book.labels" class="badge badge-secondary mr-4">{{label}}</a>
 						</div>
-					</label>
+					</div>
+					<div class="d-flex flex-column align-items-center mx-3 h-auto"  style="width: 10%;">
+						<del v-if="book.discount !==1" class="text-light text-center" style="font-size: 20px">${{book.price}}</del>
+						<span class="font-weight-bold text-center" style="font-size: 20px">${{book.price * book.discount}}</span>
+					</div>
+					<div class="d-flex flex-row justify-content-center align-items-center mx-3"  style="width: 10%;">
+						<input class="text-center" style="width: 50px" type="number" :value="book.number" @input="changeNumber($event,index)">
+					</div>
+					<div class="d-flex flex-row justify-content-center align-items-center mx-3 "  style="width: 10%;">
+						<span class="font-weight-bold text-center" style="font-size:20px; color:#e4fcec">${{book.price * book.discount * book.number}}</span>
+					</div>
+					<div class="d-flex flex-column justify-content-center align-items-center mx-3 "  style="width: 20%;">
+						<span class="text-button text-center" @click="bookDetail(book.id)">查看详情</span>
+						<span class="text-button text-center " @click="deleteBook(index)">移除书籍</span>
+					</div>
 				</div>
-			</div>
-			<p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p>
-			<!-- 结算 -->
-			<div class="fixed-bottom d-flex flex-row align-items-center pay">
-				<h3 class="flex-grow-1 m-3">合计：</h3>
-				<p class="font-weight-bolder m-3" style="font-size: 25px;">$10</p>
-				<button class="btn btn-primary m-3" type="submit">购买</button>
+				
+				<div class="fixed-bottom d-flex flex-row align-items-center pay">
+					<h3 class="flex-grow-1 m-3">合计：</h3>
+					<div class="font-weight-bolder m-3" style="font-size: 25px;">${{wholeMoney}}</div>
+					<button class="btn btn-primary m-3" type="submit">购买</button>
+				</div>	
 			</div>
 		</main>
 		
@@ -93,6 +101,7 @@
 				<div class="dropdown-divider"></div>
 				<div class="font-weight-light text-center" style="font-size: 15px">Copyright@网工小组</div>
 			</div>
+			<h3 class="m-3">&nbsp;</h3>
 
 		</footer>
 		
@@ -101,7 +110,7 @@
 		<script rel="script" src="../bootstrap/js/jquery-3.2.1.min.js"></script>
 		<script rel="script" src="../bootstrap/js/popper.js"></script>
 		<script rel="script" src="../bootstrap/js/bootstrap.js"></script>
-		
+		<script rel="script" src="../vue/vue.js"></script>
 		<script rel="script" src="../js/cart.js"></script>
 	</body>
 </html>

@@ -7,3 +7,12 @@ header{
 footer{
     background-color: #92B3CF;
 }
+.mallHead{
+    background-color: rgb(55, 79, 124);
+    width: 100%;
+}
+.mallitem{ 
+    background-color: rgb(145, 186, 223);
+    width: 100%;
+    text-decoration:none;
+}

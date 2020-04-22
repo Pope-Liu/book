@@ -63,6 +63,16 @@ let bookInfo = new Vue({
 			orders.push(order);
 			console.log(orders)
 			window.location.href = "../html/pay.html?orders=" + escape(JSON.stringify(order));
+		},
+		addtocart() {
+			let orders = [];
+			let order = {
+				bookID: bookID,
+				number: document.getElementById("bookNumber").value
+			};
+			orders.push(order);
+			console.log(orders)
+			window.location.href = "../html/cart.html?orders=" + escape(JSON.stringify(order));
 		}
 	}
 })
